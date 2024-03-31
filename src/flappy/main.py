@@ -8,12 +8,17 @@ WIDTH = 400
 HEIGHT = 600
 TITLE = "Flappy Bird"
 
+# Colours
+WHITE = (255,255,255)
+BLUE  = (  0,  0,255)
+BLACK = (  0,  0,  0)
+
 # Create the window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(TITLE)
 
 # Set the background color
-bg_color = (255, 255, 255)
+bg_color = WHITE
 
 # Create the bird sprite
 bird_image = pygame.image.load("bird.png")
@@ -51,7 +56,7 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 velocity = lift
-
+    
     # Update the bird's velocity and position
     velocity += gravity
     bird_rect.y += velocity
@@ -72,8 +77,9 @@ while running:
     if len(pipes) == 0 or pipes[-1].right < WIDTH - pipe_width:
         y = 0
         gap = pipe_gap
-        while y + gap < HEIGHT:
-            y += 50
+        #while y + gap < HEIGHT:
+        #    y += 50
+        print(HEIGHT,y,gap,HEIGHT-y-gap)
         pipe = pygame.Rect(WIDTH, y, pipe_width, HEIGHT - y - gap)
         pipes.append(pipe)
 
@@ -82,10 +88,15 @@ while running:
 
     # Draw the pipes
     for pipe in pipes:
-        pygame.draw.rect(screen, (0, 0, 0), pipe)
+        pygame.draw.rect(screen, BLACK, pipe)
 
     # Draw the bird
     screen.blit(bird_image, bird_rect)
+
+
+    # Drawing Rectangle
+    pygame.draw.rect(screen, BLACK, pygame.Rect(30, 30, 50, 0))
+
 
     # Update the screen
     pygame.display.flip()
